@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <style>
+         body {
+            padding-top: 60px; /* Adjust based on navbar height */
+        }
+        .category-section img {
+            max-height: 150px;
+            object-fit: cover;
+        }
+        .highlight-card img {
+            max-height: 100px;
+            object-fit: cover;
+        }
+        
+        /* Add responsiveness to ensure proper alignment on mobile */
+        @media (max-width: 768px) {
+            #scrollable-container {
+                overflow-x: auto; /* Enable horizontal scrolling */
+                -webkit-overflow-scrolling: touch; /* Smooth scrolling */
+            }
+        }
+
+        .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: white;
+        border: 1px solid #ddd;
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+        min-width: 250px;
+    }
+
+    .dropdown:hover > .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-item {
+        padding: 10px 15px;
+        text-decoration: none;
+        color: #000;
+    }
+
+    .dropdown-item:hover {
+        background-color: #f1f1f1;
+    }
+
+    .dropdown-submenu {
+        position: relative;
+    }
+
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -10px;
+        display: none; /* Initially hide submenu */
+    }
+
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block; /* Show submenu on hover */
+    }
+
+    .dropdown-submenu > a::after {
+        float: right;
+        margin-right: 10px;
+    }
+
+    /* Spacing for submenu alignment */
+    .dropdown-menu .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+    }
+
+    @media (max-width: 768px) {
+    .dropdown .dropdown-menu,
+    .dropdown-submenu .dropdown-menu {
+        display: none !important;
+    }
+    }
+
+    /* Styling for the cards */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 100%;  /* Ensure cards are responsive */
+    height: 100%;
+}
+
+/* Control the image size inside the card */
+.card-img-top {
+    width: 100%;
+    height: 150px; /* Make the images smaller */
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 16px; /* Smaller font size */
+    font-weight: 600;
+    color: #333;
+}
+
+.text-success {
+    color: #28a745;
+    font-weight: 500;
+}
+
+/* Optional: Add some padding around the section */
+.container {
+    padding: 15px;
+}
+
+
+    </style>
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary fixed-top">
+        <div class="container-fluid d-flex flex-column align-items-center">
+            <!-- Mobile Layout: Hamburger Menu, Logo, Buttons (Row 1), Search Field (Row 2) -->
+            <div class="d-lg-none w-100">
+                <!-- Row 1: Hamburger Menu, Logo, and Buttons -->
+                <div class="d-flex align-items-center justify-content-center w-100">
+                    <!-- Hamburger Menu -->
+                    <button class="navbar-toggler me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <!-- Brand Logo -->
+                    <a class="navbar-brand mx-auto text-center" href="#">
+                        <img src="./images/1.png" alt="Logo" style="height: 40px;">
+                    </a>
+    
+                    <!-- Login Button -->
+                    <div class="dropdown me-2">
+                        <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person me-1"></i> Login
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+                            <li><h6 class="dropdown-header">New customer? <a href="#" class="text-primary">Sign Up</a></h6></li>
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Flipkart Plus Zone</a></li>
+                            <li><a class="dropdown-item" href="#">Orders</a></li>
+                            <li><a class="dropdown-item" href="#">Wishlist</a></li>
+                            <li><a class="dropdown-item" href="#">Rewards</a></li>
+                            <li><a class="dropdown-item" href="#">Gift Cards</a></li>
+                        </ul>
+                    </div>
+    
+                    <!-- Cart Button -->
+                    <a href="#" class="btn btn-outline-secondary d-flex align-items-center">
+                        <i class="bi bi-cart me-1"></i>
+                    </a>
+                </div>
+    
+                <!-- Row 2: Search Field -->
+                <div class="mt-2 px-2 w-100">
+                    <form class="d-flex justify-content-center">
+                        <input class="form-control rounded-pill px-3 w-100" type="search" placeholder="Search for Products, Brands and More" aria-label="Search">
+                    </form>
+                </div>
+            </div>
+    
+            <!-- Desktop Layout remains the same -->
+            <div class="d-none d-lg-flex align-items-center w-100 justify-content-center">
+                <!-- Brand Logo -->
+                <a class="navbar-brand mx-3" href="#">
+                    <img src="./images/1.png" alt="Logo" style="height: 40px;">
+                </a>
+    
+                <!-- Search Field -->
+                <form class="d-flex flex-grow-1 mx-3 justify-content-center">
+                    <input class="form-control rounded-pill px-3 w-50" type="search" placeholder="Search for Products, Brands and More" aria-label="Search">
+                </form>
+    
+                <!-- Buttons: Login, Cart, Become Seller -->
+                <div class="d-flex align-items-center">
+                    <!-- Login Dropdown -->
+                    <div class="dropdown me-3">
+                        <button class="btn btn-outline-primary dropdown-toggle d-flex align-items-center" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person me-1"></i> Login
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+                            <li><h6 class="dropdown-header">New customer? <a href="#" class="text-primary">Sign Up</a></h6></li>
+                            <li><a class="dropdown-item" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Flipkart Plus Zone</a></li>
+                            <li><a class="dropdown-item" href="#">Orders</a></li>
+                            <li><a class="dropdown-item" href="#">Wishlist</a></li>
+                            <li><a class="dropdown-item" href="#">Rewards</a></li>
+                            <li><a class="dropdown-item" href="#">Gift Cards</a></li>
+                        </ul>
+                    </div>
+    
+                    <!-- Cart Button -->
+                    <a href="#" class="btn btn-outline-secondary me-3 d-flex align-items-center">
+                        <i class="bi bi-cart me-1"></i> <span class="d-none d-sm-inline">Cart</span>
+                    </a>
+    
+                    <!-- Become a Seller Button -->
+                    <a href="#" class="btn btn-outline-success d-none d-sm-flex align-items-center">
+                        <i class="bi bi-shop me-1"></i> <span>Become Seller</span>
+                    </a>
+                </div>
+            </div>
+    
+            <!-- Offcanvas Navbar for Mobile -->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Login & SignUp</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">All Categories</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">My Orders</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">Coupons</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">My Cart</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">My Wishlist</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">My Account</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">My Notifications</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    
+    
+    
+
+<!-- Horizontal Categories -->
+<div class="container mt-4">
+    <div class="d-flex justify-content-center align-items-center border py-3 bg-light rounded" id="scrollable-container">
+        <a href="#" class="text-decoration-none text-dark d-flex flex-column align-items-center mx-3" style="flex-shrink: 0;">
+            <img src="https://rukminim2.flixcart.com/flap/64/64/image/29327f40e9c4d26b.png?q=100" class="mb-2" alt="Grocery">
+            <span>Grocery</span>
+        </a>
+        <a href="#" class="text-decoration-none text-dark d-flex flex-column align-items-center mx-3" style="flex-shrink: 0;">
+            <img src="https://rukminim2.flixcart.com/flap/64/64/image/22fddf3c7da4c4f4.png?q=100" class="mb-2" alt="Mobiles">
+            <span>Mobiles</span>
+        </a>
+        <div class="dropdown">
+            <a href="#" class="text-decoration-none text-dark d-flex flex-column align-items-center mx-3" style="flex-shrink: 0; cursor: pointer;">
+                <img src="https://www.brownsfashion.com/BWStaticContent/16000/24cad7b7-2978-4366-8fbb-0e7d4ff10da9_splash-apr-24-16.jpg" width="70px" height="65px" class="mb-2" alt="Fashion">
+                <span>Fashion</span>
+            </a>
+            <div class="dropdown-menu">
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Men's Top Wear</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Men's T-Shirts</a>
+                        <a href="#" class="dropdown-item">Men's Casual Shirts</a>
+                        <a href="#" class="dropdown-item">Men's Formal Shirts</a>
+                        <a href="#" class="dropdown-item">Men's Kurtas</a>
+                        <a href="#" class="dropdown-item">Men's Blazers</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Men's Bottom Wear</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Men's Jeans</a>
+                        <a href="#" class="dropdown-item">Men's Trackpants</a>
+                        <a href="#" class="dropdown-item">Men's Shorts</a>
+                        <a href="#" class="dropdown-item">Men's Trousers</a>
+                        <a href="#" class="dropdown-item">Men's Cargos</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Women Ethnic</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Women's Sarees</a>
+                        <a href="#" class="dropdown-item">Women's Kurtas & Kurtis</a>
+                        <a href="#" class="dropdown-item">Ethenic Dresses</a>
+                        <a href="#" class="dropdown-item">Women's Gowns</a>
+                        <a href="#" class="dropdown-item">Women's Lehengas</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Men Footwear</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Men's Sport shoes</a>
+                        <a href="#" class="dropdown-item">Men's Formal shoes</a>
+                        <a href="#" class="dropdown-item">Flip Flops</a>
+                        <a href="#" class="dropdown-item">Sandals</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Women Footwear</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Women's Casual shoes</a>
+                        <a href="#" class="dropdown-item">Women's Flats</a>
+                        <a href="#" class="dropdown-item">Women's Heels</a>
+                        <a href="#" class="dropdown-item">Women's Wedges</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Watches and Accessories</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Men & Women Watches</a>
+                        <a href="#" class="dropdown-item">Men & Women Sunglasses</a>
+                        <a href="#" class="dropdown-item">Wallets</a>
+                        <a href="#" class="dropdown-item">Men & Women Belts</a>
+                    </div>
+                </div>
+                
+                <a href="#" class="dropdown-item">Kids</a>
+                <a href="#" class="dropdown-item">Essentials</a>
+                <a href="#" class="dropdown-item">Winter</a>
+            </div>
+        </div>
+        <div class="dropdown">
+            <a href="#" class="text-decoration-none text-dark d-flex flex-column align-items-center mx-3" style="flex-shrink: 0; cursor: pointer;">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTywdKCWFtgTEAcBU43hOqAZnH215eEBAWcVexgP9yRIneGlr99qo2fdJdHKIbedrEee8&usqp=CAU" width="70px" height="65px" class="mb-2" alt="Electronics">
+                <span>Electronics</span>
+            </a>
+            <div class="dropdown-menu">
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Mobiles</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Smartphones</a>
+                        <a href="#" class="dropdown-item">Feature Phones</a>
+                        <a href="#" class="dropdown-item">Mobile Accessories</a>
+                        <a href="#" class="dropdown-item">Power Banks</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Laptops</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Gaming Laptops</a>
+                        <a href="#" class="dropdown-item">Business Laptops</a>
+                        <a href="#" class="dropdown-item">2-in-1 Laptops</a>
+                        <a href="#" class="dropdown-item">Laptop Accessories</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Cameras</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">DSLR Cameras</a>
+                        <a href="#" class="dropdown-item">Mirrorless Cameras</a>
+                        <a href="#" class="dropdown-item">Action Cameras</a>
+                        <a href="#" class="dropdown-item">Camera Accessories</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Audio</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Headphones</a>
+                        <a href="#" class="dropdown-item">Earbuds</a>
+                        <a href="#" class="dropdown-item">Speakers</a>
+                        <a href="#" class="dropdown-item">Soundbars</a>
+                    </div>
+                </div>
+                <div class="dropdown-submenu">
+                    <a href="#" class="dropdown-item">Smart Home</a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Smart TVs</a>
+                        <a href="#" class="dropdown-item">Smart Speakers</a>
+                        <a href="#" class="dropdown-item">Home Automation</a>
+                        <a href="#" class="dropdown-item">CCTV Cameras</a>
+                    </div>
+                </div>
+                <a href="#" class="dropdown-item">Gaming</a>
+                <a href="#" class="dropdown-item">Wearables</a>
+            </div>
+        </div>
+        <a href="#" class="text-decoration-none text-dark d-flex flex-column align-items-center mx-3" style="flex-shrink: 0;">
+            <img src="https://rukminim2.flixcart.com/fk-p-flap/64/64/image/0139228b2f7eb413.jpg?q=100" class="mb-2" alt="Appliances">
+            <span>Appliances</span>
+        </a>
+        <a href="#" class="text-decoration-none text-dark d-flex flex-column align-items-center mx-3" style="flex-shrink: 0;">
+            <img src="https://zivamoms.com/media/catalog/product/cache/393076a5f7091c740cc66e099254a548/2/1/21_2.jpg" width="70px" height="65px" class="mb-2" alt="Toys">
+            <span>Toys</span>
+        </a>
+    </div>
+</div>
+
+
+
+    <!-- Hero Banner -->
+    <div class="container mt-4">
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/e6dc4b4c88912592.jpg?q=20" class="d-block w-100" >
+                </div>
+                <div class="carousel-item">
+                    <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/1316eb53d6f52c71.jpg?q=20" class="d-block w-100" >
+                </div>
+                <div class="carousel-item">
+                    <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/d9290fb51138d286.png?q=20" class="d-block w-100" >
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Category Section -->
+    <div class="container mt-4">
+        <h3>Categories</h3>
+        <div class="row text-center">
+            <div class="col-md-3">
+                <div class="card category-section">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzskk4PWxz4L5k-szPMlx2vRtnivWAwsO_LA&s" class="card-img-top" alt="Category 1">
+                    <div class="card-body">
+                        <h6 class="card-title">Kurtas & Sets</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card category-section">
+                    <img src="https://m.media-amazon.com/images/I/71Kg9wAkf4L._AC_UY900_.jpg" class="card-img-top" alt="Category 2">
+                    <div class="card-body">
+                        <h6 class="card-title">Water Resistant Footwear</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card category-section">
+                    <img src="https://plus.unsplash.com/premium_photo-1670984281009-863453504c52?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8bWVucyUyMHNob2VzfGVufDB8fDB8fHww" class="card-img-top" alt="Category 3">
+                    <div class="card-body">
+                        <h6 class="card-title">Men's Footwear</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card category-section">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjVJwk-xb3BaeokuXw8JNqmUwXCHoGsIHEuA&s" class="card-img-top" alt="Category 4">
+                    <div class="card-body">
+                        <h6 class="card-title">Seasonal Offers</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Today's Highlights -->
+    <div class="container mt-4">
+        <h3>Today's Highlights</h3>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card highlight-card">
+                    <img src="https://rukminim2.flixcart.com/fk-p-flap/850/600/image/09f4df13a7820d06.jpg?q=90" class="card-img-top" alt="Highlight 1">
+                    <div class="card-body text-center">
+                        <h6 class="card-title">Best Offers</h6>
+                        <p class="card-text">Up to 40% Off</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card highlight-card">
+                    <img src="https://star-media.com.au/wp-content/uploads/2020/03/6CC8DBB8-1622-4418-8C2C-E8B4A7B49A90.jpeg" class="card-img-top" alt="Highlight 2">
+                    <div class="card-body text-center">
+                        <h6 class="card-title">New Launches</h6>
+                        <p class="card-text">From ₹499</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card highlight-card">
+                    <img src="https://i.rtings.com/assets/pages/6dRuEBex/best-gaming-laptops-20242028-medium.jpg?format=auto" class="card-img-top" alt="Highlight 3">
+                    <div class="card-body text-center">
+                        <h6 class="card-title">Gaming Laptops</h6>
+                        <p class="card-text">From ₹43,990</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-4">
+        <div class="row">
+            <!-- Winter Essentials Section -->
+            <div class="col-md-4">
+                <h4>Winter Essentials for You</h4>
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
+                    <div class="col">
+                        <div class="card">
+                            <img src="https://i.ytimg.com/vi/EwHteULCxQ4/maxresdefault.jpg" class="card-img-top" alt="Men's Jackets">
+                            <div class="card-body">
+                                <p class="card-title">Men's Jackets</p>
+                                <p class="text-success">Min. 50% Off</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="https://www.petermillar.com/dw/image/v2/BHFJ_PRD/on/demandware.static/-/Sites-PM-Library/default/dwc6b5a76e/components/content-tiles/2024/fall-24-delivery-1/content-tile-mens-aw24-02-m.jpg" class="card-img-top" alt="Men's Sweaters">
+                            <div class="card-body">
+                                <p class="card-title">Men's Sweaters</p>
+                                <p class="text-success">Widest Range</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="https://womenlehenga.com/wp-content/uploads/2024/06/lehenga-designs-for-women-.jpg" class="card-img-top" alt="Men's Sweatshirts">
+                            <div class="card-body">
+                                <p class="card-title">Women' Lehengas</p>
+                                <p class="text-success">Special Offer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <img src="https://styl-inc.com/wp-content/uploads/2021/03/Types-of-jeans-for-women-1.jpg" class="card-img-top" alt="Men's Mufflers">
+                            <div class="card-body">
+                                <p class="card-title">Women's Top & Jeans</p>
+                                <p class="text-success">Min. 50% Off</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Top Selling Smartphones Section -->
+            <div class="col-md-8">
+                <div class="bg-light p-4 rounded text-center">
+                    <h3>Top Selling Smartphones</h3>
+                    <p class="text-secondary">Latest Technology, Best Brands</p>
+                    <img src="https://d2kbvjszk9d5ln.cloudfront.net/yshop/upload/pic/A96%282%29-20230926101441223.jpeg" alt="Smartphones" class="img-fluid">
+                    <a href="#" class="btn btn-primary mt-3">Explore Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-4">
+        <div class="container text-center">
+            <p>&copy; 2024 Flipkart Clone | All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
